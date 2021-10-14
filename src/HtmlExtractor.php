@@ -3,6 +3,7 @@
 namespace splitbrain\sitemapmirror;
 
 use PHPHtmlParser\Dom;
+use PHPHtmlParser\Options;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -19,7 +20,7 @@ class HtmlExtractor extends Extractor
     {
         parent::__construct($logger, $url, $data);
 
-        $this->findURLs($url, $data);
+        $this->findURLs();
     }
 
     /** @inheritDoc */
@@ -41,6 +42,7 @@ class HtmlExtractor extends Extractor
     protected function findURLs()
     {
         $dom = new Dom();
+        $dom->setOptions((new Options())->setRemoveScripts(false));
 
         try {
             $dom->loadStr($this->data);
