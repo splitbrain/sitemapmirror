@@ -4,6 +4,11 @@ namespace splitbrain\sitemapmirror;
 
 use Psr\Log\LoggerInterface;
 
+/**
+ * Extractors save data and extract additional URLs
+ *
+ * @todo in the future they could also rewrite the content before saving
+ */
 abstract class Extractor
 {
 
@@ -36,6 +41,15 @@ abstract class Extractor
      */
     abstract public function save($outdir);
 
+    /**
+     * Convert a given path into an absolute URL
+     *
+     * This returns an empty result for everything external (eg. everything with a scheme)
+     *
+     * @param string $requesturl The full URL the given $url may be relative to
+     * @param string $url The path or URL to adjust
+     * @return string
+     */
     protected function makeInternalUrl($requesturl, $url)
     {
         if (preg_match('/^\w+:\/\//', $url)) return ''; //external
@@ -47,9 +61,15 @@ abstract class Extractor
             // relative url
             return $this->makeSimpleUrl($requesturl, true) . $url;
         }
-
     }
 
+    /**
+     * We often need the base URL without any fluff at the end, this does it
+     *
+     * @param string $url a full URL
+     * @param bool $keeppath Should the path component be kept?
+     * @return string the base URL
+     */
     protected function makeSimpleUrl($url, $keeppath = false)
     {
         $parsed_url = parse_url($url);

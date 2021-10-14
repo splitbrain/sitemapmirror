@@ -6,8 +6,14 @@ use Psr\Log\LoggerInterface;
 use Sabberworm\CSS\Property\Import;
 use Sabberworm\CSS\Value\URL;
 
+/**
+ * Processes CSS files
+ *
+ * CSS may contain further URLs that need to be downloaded
+ */
 class CssExtractor extends GenericExtractor
 {
+    /** @inheritDoc */
     public function __construct(LoggerInterface $logger, $url, $data)
     {
         parent::__construct($logger, $url, $data);

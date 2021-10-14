@@ -2,6 +2,9 @@
 
 namespace splitbrain\sitemapmirror;
 
+/**
+ * This simply saves the file but does no further processing
+ */
 class GenericExtractor extends Extractor
 {
 

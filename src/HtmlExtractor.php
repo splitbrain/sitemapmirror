@@ -5,6 +5,12 @@ namespace splitbrain\sitemapmirror;
 use PHPHtmlParser\Dom;
 use Psr\Log\LoggerInterface;
 
+/**
+ * Handles HTML files
+ *
+ * We save all HTML as a directory with an index.html
+ * @todo This works great for Grav, but might need rewriting to avoid breaking relative references?
+ */
 class HtmlExtractor extends Extractor
 {
 
@@ -16,6 +22,7 @@ class HtmlExtractor extends Extractor
         $this->findURLs($url, $data);
     }
 
+    /** @inheritDoc */
     public function save($outdir)
     {
         $file = parse_url($this->requesturl, PHP_URL_PATH);
@@ -28,6 +35,9 @@ class HtmlExtractor extends Extractor
         $this->findURLs($this->requesturl, $this->data);
     }
 
+    /**
+     * Find elements that can have URLs and extract them
+     */
     protected function findURLs()
     {
         $dom = new Dom();

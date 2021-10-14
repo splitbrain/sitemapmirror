@@ -8,7 +8,7 @@ use vipnytt\SitemapParser;
 
 class SiteMapMirror extends PSR3CLI
 {
-
+    /** @inheritDoc */
     protected function setup(Options $options)
     {
         $options->setHelp(
@@ -21,6 +21,7 @@ class SiteMapMirror extends PSR3CLI
         $options->registerOption('dir', 'The directory to save to. Defaults to a dir named after the server.', 'd', true);
     }
 
+    /**  @inheritDoc */
     protected function main(Options $options)
     {
 

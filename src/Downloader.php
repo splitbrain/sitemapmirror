@@ -4,15 +4,26 @@ namespace splitbrain\sitemapmirror;
 
 use Psr\Log\LoggerInterface;
 
+/**
+ * Manages all Downloads
+ */
 class Downloader
 {
-
+    /** @var string where to save files */
     protected $outdir;
+    /** @var \GuzzleHttp\Client HTTP Client */
     protected $guzzle;
+    /** @var LoggerInterface the CLI logger */
     protected $logger;
+    /** @var string[] URLs still to process */
     protected $tofetch = [];
+    /** @var string[] URLs already processed */
     protected $fetched = [];
 
+    /**
+     * @param LoggerInterface $logger
+     * @param string $outdir Where to save files
+     */
     public function __construct(LoggerInterface $logger, $outdir)
     {
         $this->guzzle = new  \GuzzleHttp\Client();
@@ -20,6 +31,10 @@ class Downloader
         $this->outdir = $outdir;
     }
 
+    /**
+     * Start the download process using the given URLs
+     * @param string[] $urls
+     */
     public function download($urls)
     {
         $this->tofetch = $urls;
@@ -28,6 +43,14 @@ class Downloader
         }
     }
 
+    /**
+     * Download a process a single URL
+     *
+     * Depending on the mime type a different Extractor is run. Extractors will save the content
+     * and might return additional URLs which will be enqueued.
+     *
+     * @param string $url
+     */
     protected function fetch($url)
     {
         $this->logger->info($url);
