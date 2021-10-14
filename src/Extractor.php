@@ -53,6 +53,7 @@ abstract class Extractor
     protected function makeInternalUrl($requesturl, $url)
     {
         if (preg_match('/^\w+:\/\//', $url)) return ''; //external
+        if (preg_match('/^\w{1,10}:/', $url)) return ''; //pseudo protocols
 
         if ($url[0] == '/') {
             // absolute url
@@ -82,7 +83,7 @@ abstract class Extractor
         if ($keeppath) {
             $path = isset($parsed_url['path']) ? $parsed_url['path'] : '';
         } else {
-            $path = '/';
+            $path = '';
         }
         return "$scheme$user$pass$host$port$path";
     }

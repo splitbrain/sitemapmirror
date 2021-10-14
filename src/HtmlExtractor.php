@@ -50,8 +50,8 @@ class HtmlExtractor extends Extractor
             $this->logger->error($e->getMessage());
         }
 
-        // mainly stylesheets
-        $elements = $dom->find('link[href]');
+        // all the links (the sitemap may not be complete) and also stylesheets
+        $elements = $dom->find('[href]');
         foreach ($elements as $element) {
             /** @var Dom\Node\HtmlNode $element */
             $newurl = $this->makeInternalUrl($this->requesturl, $element->getAttribute('href'));
