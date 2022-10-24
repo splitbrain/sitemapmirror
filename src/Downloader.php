@@ -37,7 +37,7 @@ class Downloader
      */
     public function download($urls)
     {
-        $this->tofetch = $urls;
+        $this->queueUrls($urls);
         while ($url = array_shift($this->tofetch)) {
             $this->fetch($url);
         }

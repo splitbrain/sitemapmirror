@@ -55,6 +55,11 @@ abstract class Extractor
         if (preg_match('/^\w+:\/\//', $url)) return ''; //external
         if (preg_match('/^\w{1,10}:/', $url)) return ''; //pseudo protocols
 
+        // ignore hash part
+        list($url) = explode('#', $url);
+        // skip empty URLs
+        if($url === '') return '';
+
         if ($url[0] == '/') {
             // absolute url
             return $this->makeSimpleUrl($requesturl) . $url;
