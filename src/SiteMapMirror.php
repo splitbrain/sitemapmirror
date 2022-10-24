@@ -29,7 +29,7 @@ class SiteMapMirror extends PSR3CLI
         $outdir = parse_url($sitemap, PHP_URL_HOST);
         $outdir = $options->getOpt('dir', $outdir);
 
-        $parser = new SitemapParser();
+        $parser = new SitemapParser(SitemapParser::DEFAULT_USER_AGENT, ['strict' => false]);
         $parser->parse($sitemap);
         $urls = array_keys($parser->getURLs());
 
