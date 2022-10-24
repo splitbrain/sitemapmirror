@@ -82,6 +82,9 @@ abstract class Extractor
         $pass = ($user || $pass) ? "$pass@" : '';
         if ($keeppath) {
             $path = isset($parsed_url['path']) ? $parsed_url['path'] : '';
+            if(substr($path, -1) != '/') {
+                $path = dirname($path) . '/';
+            }
         } else {
             $path = '';
         }
