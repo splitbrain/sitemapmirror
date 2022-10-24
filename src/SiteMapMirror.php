@@ -18,7 +18,7 @@ class SiteMapMirror extends PSR3CLI
         );
 
         $options->registerArgument('sitemap url', 'The URL to the XML sitemap of the site to copy');
-        $options->registerOption('dir', 'The directory to save to. Defaults to a dir named after the server.', 'd', true);
+        $options->registerOption('dir', 'The directory to save to. Defaults to a dir named after the server.', 'd', 'directory');
     }
 
     /**  @inheritDoc */
